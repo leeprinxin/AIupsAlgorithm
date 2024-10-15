@@ -1,0 +1,23 @@
+services:
+  app:
+    build: .
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    shm_size: '8gb'
+    volumes:
+      - ./:/aiups
+    environment:
+      JUPYTER_ENABLE_LAB: "yes"
+      command: "start-notebook.sh --NotebookApp.token='aiups"
+      JUPYTER_TOKEN: ""               # 禁用 token
+      JUPYTER_PASSWORD: ""            # 禁用密碼
+      JUPYTER_DISABLE_CHECK_XSRF: "true"  # 禁用 XSRF 檢查
+    working_dir: /aiups
+    ports:
+      - "8889:8888"
+    tty: true
