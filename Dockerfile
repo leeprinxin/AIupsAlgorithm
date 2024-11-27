@@ -1,8 +1,18 @@
-# 基礎映像使用 python:3.9
-FROM python:3.9
+# 基礎映像使用 nvcr.io/nvidia/pytorch:23.11-py3
+FROM nvcr.io/nvidia/pytorch:23.11-py3
 
 # 設置工作目錄
 WORKDIR /AIups
+
+# 安裝必要的系統套件
+RUN apt-get update && apt-get install -y \
+    gcc \
+    g++ \
+    make \
+    cmake \
+    libgl1-mesa-glx \
+    libglib2.0-0 \
+    binutils
 
 # 更新 pip 並安裝必要的 Python 套件
 COPY requirements.txt .

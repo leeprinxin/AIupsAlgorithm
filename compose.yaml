@@ -13,11 +13,12 @@ services:
       - ./:/aiups
     environment:
       JUPYTER_ENABLE_LAB: "yes"
-      command: "start-notebook.sh --NotebookApp.token='aiups"
       JUPYTER_TOKEN: ""               # 禁用 token
       JUPYTER_PASSWORD: ""            # 禁用密碼
       JUPYTER_DISABLE_CHECK_XSRF: "true"  # 禁用 XSRF 檢查
     working_dir: /aiups
+    image: aiups-automl:24.12  # 設定映像名稱與版本
     ports:
-      - "8889:8888"
+      - "8888:8888"
     tty: true
+    command: ["jupyter", "lab", "--ip=0.0.0.0", "--allow-root", "--no-browser", "--NotebookApp.token='aaa'", "--NotebookApp.password=''"]
